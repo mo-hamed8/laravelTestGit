@@ -19,4 +19,9 @@ Route::middleware('auth')->group(function () {
 
 Route::view('hello', 'helloPage');
 
+Route::get("profile",function(){
+    $profile=["name"=>"MOHAMMED","email"=>"mo@gmail.com","address","Taif"];
+    return view("profile",$profile);
+});
+
 require __DIR__.'/auth.php';
