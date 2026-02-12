@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عرض البيانات من API حقيقي</title>
+</head>
+<body>
+  <h1>معلومات المستخدم</h1>
+  <div id="user-info">
+    جاري تحميل البيانات...
+  </div>
+
+  <script>
+    // رابط API الحقيقي
+    const apiURL = 'http://127.0.0.1:8000/api/profile'; // حط هنا رابط الـAPI الفعلي
+
+    // جلب البيانات من API
+    fetch(apiURL)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('خطأ في استدعاء API');
+        }
+        return response.json(); // تحويل الرد JSON
+      })
+      .then(userData => {
+        const infoDiv = document.getElementById('user-info');
+        infoDiv.innerHTML = `
+          <p><strong>الاسم:</strong> ${userData.name}</p>
+          <p><strong>الإيميل:</strong> ${userData.email}</p>
+          <p><strong>العنوان:</strong> ${userData.address}</p>
+        `;
+      })
+      .catch(err => {
+        document.getElementById('user-info').innerText = 'حدث خطأ في تحميل البيانات';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
